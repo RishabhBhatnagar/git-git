@@ -10,9 +10,11 @@ def home():
 
 @app.route('/submit_essay', methods=["GET", 'POST'])
 def submit_essay():
-	essay = flask.request.form.get("essay_block")
-	print(predict_single_essay(essay, Constants.gensim_model_name, Constants.lstm_model_name))
-	return render_template("home.html")
+    print('='*100, flask.request.form, '='*100)
+    essay = flask.request.form.get("essay_block")
+    print('='*100, essay, '='*100)
+    score = (predict_single_essay(essay, Constants.gensim_model_name, Constants.lstm_model_name))
+    return render_template("home.html", score=score)
 
 if __name__ == '__main__':
     app.run(debug=1)
