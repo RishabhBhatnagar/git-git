@@ -15,8 +15,10 @@ from keras import backend as K
 
 
 class Constants:
-	lstm_model_name = "lstm_model"
-	gensim_model_name = 'gensim_model'
+    lstm_model_name = "lstm_model"
+    gensim_model_name = 'gensim_model'
+    data_file_path = 'training.tsv'
+    score_metric = 'rater1_domain1'
 
 
 def get_list_words(essay):
@@ -157,15 +159,15 @@ if __name__ == '__main__':
     if True:
         lstm_model_name = Constants.lstm_model_name
         gensim_model_name = Constants.gensim_model_name
-        #../dataset/dataset/
-        data = read_csv('training.tsv', encoding='latin', sep='\t')
+        
+        data = read_csv(Constants.data_file_path, encoding='latin', sep='\t')
         train_data = data[:8 * len(data['essay']) // 10]
         test_data = data[8 * len(data['essay']) // 10:]
         del data  # Freeing up memory.
         train_essays = train_data['essay']
         test_essays = test_data['essay']
-        y_train = train_data['rater1_domain1']
-        y_test = test_data['rater1_domain1']
+        y_train = train_data[Constants.score_metric]
+        y_test = test_data[Constants.score_metric]
 
         vector_size = 300
         min_word_count = 40

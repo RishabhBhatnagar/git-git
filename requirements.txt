@@ -1,0 +1,5 @@
+graphviz
+tensorflow
+keras
+numpy
+pydot
